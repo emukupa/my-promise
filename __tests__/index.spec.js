@@ -55,7 +55,31 @@ describe("catch", () => {
       })
       .catch((v) => expect(v).toEqual(12)));
 });
-describe.skip("finally", () => {});
+describe("finally", () => {
+  it("with no chaining", () => {
+    const checkFunc = (v) => (v) => expect(v).toBeUndefined();
+    const successPromise = promise().finally(checkFunc);
+    const failPromise = promise({ fail: true }).finally(checkFunc);
+    return Promise.allSettled([successPromise, failPromise]);
+  });
+  it("with multiple faniallys for same promise", () => {
+    const checkFunc = (v) => expect(v).toBeUndefined();
+    const mainPromise = promise();
+    const promise1 = mainPromise.finally(checkFunc);
+    const promise2 = mainPromise.finally(checkFunc);
+    return Promise.allSettled([promise1, promise2]);
+  });
+  it("with chaining", () => {
+    const checkFunc = (v) => (v) => expect(v).toBeUndefined();
+    const successPromise = promise()
+      .then((v) => v)
+      .finally(checkFunc);
+    const failPromise = promise({ fail: true })
+      .then((v) => v)
+      .finally(checkFunc);
+    return Promise.allSettled([successPromise, failPromise]);
+  });
+});
 describe.skip("all", () => {});
 describe.skip("race", () => {});
 describe.skip("any", () => {});
