@@ -41,8 +41,12 @@ describe("then", () => {
 describe("catch", () => {
   it("with no chaining", () =>
     promise({ fail: true }).catch((v) => expect(v).toEqual(DEFAULT_VALUE)));
-  it.skip("with multiple catches for same promise", () => {
-    expect(true).toEqual(false);
+  it("with multiple catches for same promise", () => {
+    const checkFunc = (v) => expect(v).toEqual(DEFAULT_VALUE);
+    const mainPromise = promise();
+    const promise1 = mainPromise.catch(checkFunc);
+    const promise2 = mainPromise.catch(checkFunc);
+    return Promise.allSettled([promise1, promise2]);
   });
   it("with chaining", () =>
     promise({ value: 3 })
