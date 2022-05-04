@@ -17,12 +17,29 @@ describe("Promise Class", () => {
 describe("then", () => {
   it("with no chaining", () =>
     promise().then((v) => expect(v).toEqual(DEFAULT_VALUE)));
-  it.skip("with multiple thens for same promise", () =>
-    expect(true).toBe(false));
-  it.skip("with then and catch", () => expect(true).toBe(false));
-  it.skip("with chaining", () => expect(true).toBe(false));
+  it("with multiple thens for same promise", () => {
+    const checkFunc = (v) => expect(v).toBe(DEFAULT_VALUE);
+    const mainPromise = promise();
+    const promise1 = mainPromise.then(checkFunc);
+    const promise2 = mainPromise.then(checkFunc);
+    return Promise.allSettled([promise1, promise2]);
+  });
+  it("with then and catch", () => {
+    const checkFunc = (v) => expect(v).toBe(DEFAULT_VALUE);
+    const failFunc = (v) => expect(1).toEqual(2);
+    const resolvePromise = promise().then(checkFunc, failFunc);
+    const rejectPromise = promise({ fail: true }).then(failFunc, checkFunc);
+    return Promise.allSettled([resolvePromise, rejectPromise]);
+  });
+  it("with chaining", () => {
+    return promise({ value: 3 })
+      .then((v) => v * 4)
+      .then((v) => expect(v).toEqual(12));
+  });
 });
-describe.skip("catch", () => {});
+describe.skip("catch", () => {
+  it("", () => expect(true).toEqual(false));
+});
 describe.skip("finally", () => {});
 describe.skip("all", () => {});
 describe.skip("race", () => {});
