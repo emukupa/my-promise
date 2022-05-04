@@ -1,0 +1,29 @@
+{
+  "name": "my-promise-v1",
+  "version": "1.0.0",
+  "description": "create my own promise",
+  "main": "src/index/js",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "test": "jest --watchAll --noStackTrace"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emukupa/my-promise.git"
+  },
+  "keywords": [
+    "promise",
+    "jest",
+    "testing"
+  ],
+  "author": "Edward Manda",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emukupa/my-promise/issues"
+  },
+  "homepage": "https://github.com/emukupa/my-promise#readme",
+  "devDependencies": {
+    "jest": "^28.0.3",
+    "nodemon": "^2.0.16"
+  }
+}
