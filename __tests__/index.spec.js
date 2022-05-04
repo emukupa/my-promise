@@ -38,7 +38,15 @@ describe("then", () => {
   });
 });
 describe.skip("catch", () => {
-  it("", () => expect(true).toEqual(false));
+  it.skip("with no chaining", () => {
+    expect(true).toEqual(false);
+  });
+  it.skip("with multiple catches for same promise", () => {
+    expect(true).toEqual(false);
+  });
+  it.skip("with chaining", () => {
+    expect(true).toEqual(false);
+  });
 });
 describe.skip("finally", () => {});
 describe.skip("all", () => {});
