@@ -37,16 +37,19 @@ describe("then", () => {
       .then((v) => expect(v).toEqual(12));
   });
 });
-describe.skip("catch", () => {
-  it.skip("with no chaining", () => {
-    expect(true).toEqual(false);
-  });
+
+describe("catch", () => {
+  it("with no chaining", () =>
+    promise({ fail: true }).catch((v) => expect(v).toEqual(DEFAULT_VALUE)));
   it.skip("with multiple catches for same promise", () => {
     expect(true).toEqual(false);
   });
-  it.skip("with chaining", () => {
-    expect(true).toEqual(false);
-  });
+  it("with chaining", () =>
+    promise({ value: 3 })
+      .then((v) => {
+        throw v * 4;
+      })
+      .catch((v) => expect(v).toEqual(12)));
 });
 describe.skip("finally", () => {});
 describe.skip("all", () => {});
