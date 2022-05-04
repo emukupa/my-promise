@@ -1,7 +1,15 @@
-// const MyPromise = require("../src/my-promise");
-const MyPromise = Promise;
+const MyPromise = require("../src/my-promise");
+// const MyPromise = Promise;
 
 const DEFAULT_VALUE = "default";
+
+/*
+function promise({ value = DEFAULT_VALUE, fail = false } = {}) {
+  return new MyPromise((resolve, reject) => {
+    fail ? reject(value) : resolve(value);
+  });
+}
+*/
 
 const promise = ({ value = DEFAULT_VALUE, fail = false } = {}) =>
   new MyPromise((resolve, reject) => {
@@ -55,6 +63,7 @@ describe("catch", () => {
       })
       .catch((v) => expect(v).toEqual(12)));
 });
+
 describe("finally", () => {
   it("with no chaining", () => {
     const checkFunc = (v) => (v) => expect(v).toBeUndefined();
